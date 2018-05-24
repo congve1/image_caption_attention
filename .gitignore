@@ -1,0 +1,13 @@
+Untitled1.ipynb
+data/
+data/*
+data/train2014/*
+data/val2014/*
+data/cocotalk.h5
+data/cocotakl_label.h5
+coco-caption/
+coco-caption/*
+.ipynb_checkpoints/
+.ipynb_checkpoints*
+.vscode/
+.vscode/*
