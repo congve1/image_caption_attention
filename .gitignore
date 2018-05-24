@@ -1,10 +1,10 @@
 Untitled1.ipynb
-data/
-data/*
+data/cocotalk.json
+data/dataset_coco.json
 data/train2014/*
 data/val2014/*
 data/cocotalk.h5
-data/cocotakl_label.h5
+data/cocotalk_label.h5
 coco-caption/
 coco-caption/*
 .ipynb_checkpoints/
