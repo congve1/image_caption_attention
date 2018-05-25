@@ -52,16 +52,14 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
                                           seq[torch.arange(loader.batch_size,dtype=torch.long)*
                                               loader.seq_per_img])
 
+            print("batch [{} / {}]".format(i, total_step))
             for k, sent in enumerate(sents):
                 entry = {"image_id":data['infos'][k]['id'],
                          "caption": sent}
                 predictions.append(entry)
 
                 if verbose:
-                    print("[%d/%d]image: %s: %s"%(i,
-                                                  total_step if num_images == -1 else num_images,
-                                                  entry['image_id'],
-                                                  entry['caption']))
+                    print("image: %s: %s"%(i,entry['image_id'], entry['caption']))
 
             if num_images >= 0 and (i+1)*loader.batch_size >= num_images:
                 break
