@@ -53,7 +53,7 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
                                           seq[torch.arange(loader.batch_size,dtype=torch.long)*
                                               loader.seq_per_img])
 
-            print("batch [{} / {}] cost: {}".format(i, total_step, utils.get_duration(start))
+            print("batch [{} / {}] cost: {}".format(i, total_step, utils.get_duration(start)))
             for k, sent in enumerate(sents):
                 entry = {"image_id":data['infos'][k]['id'],
                          "caption": sent}
