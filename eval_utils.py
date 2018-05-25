@@ -59,7 +59,7 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
                 predictions.append(entry)
 
                 if verbose:
-                    print("image: %s: %s"%(i,entry['image_id'], entry['caption']))
+                    print("image: %s: %s"%(entry['image_id'], entry['caption']))
 
             if num_images >= 0 and (i+1)*loader.batch_size >= num_images:
                 break
