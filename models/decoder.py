@@ -42,6 +42,7 @@ class Decoder(nn.Module):
         return torch.stack(outputs, dim=1)
 
     def sample(self, features):
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         features = self.bn(features).permute(0, 2, 1)
         beam_size = self.opt.beam_size
         if beam_size > 1:
@@ -53,6 +54,7 @@ class Decoder(nn.Module):
         for t in range(self.seq_length+1):
             if t == 0: # <bos>
                 it = torch.zeros(batch_size, dtype=torch.long)
+                it = it.to(device)
             else:
                 sample_log_probs, it = torch.max(logprobs, 1)
                 it = it.view(-1).long()

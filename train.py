@@ -56,7 +56,7 @@ def train(opt):
     encoder = encoder.to(device)
     decoder = decoder.to(device)
 
-    criterion =  utils.LanguageModelCriterion()
+    criterion =  utils.LanguageModelCriterion().to(device)
     optimizer = optim.Adam(decoder.parameters(), lr=opt.learning_rate,
                            weight_decay=opt.weight_decay)
 
@@ -65,6 +65,7 @@ def train(opt):
         optimizer.load_state_dict(torch.load(optimizer_path))
 
     total_step = len(loader)
+    start = time.time()
     for epoch in range(current_epoch, opt.max_epochs):
         if epoch > opt.learning_rate_decay_start and \
             opt.learning_rate_decay_start >= 0:
@@ -78,7 +79,6 @@ def train(opt):
             if i > total_step - 1:
                 iteration = 0
                 break
-            start = time.time()
             transform = transforms.Normalize((0.485, 0.456, 0.406),
                                              (0.229, 0.224, 0.225))
             imgs = []
@@ -93,7 +93,6 @@ def train(opt):
 
             with torch.no_grad():
                 features = encoder(imgs)
-
             preds = decoder(features, labels)
 
             loss = criterion(preds, labels[:, 1:], masks[:, 1:])
