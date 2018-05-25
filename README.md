@@ -23,6 +23,8 @@ To use this code, you need to install:
 - [tensorboardX](https://github.com/lanpa/tensorboard-pytorch)
 - numpy
 - pycocotools
+- imageio
+- sciki-image
 - h5py
 
 You can use pip to install pycocotools directly or compile from source code.
