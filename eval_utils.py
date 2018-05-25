@@ -29,6 +29,7 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
         loss_evals = 1e-8
         predictions = []
         total_step = len(loader)
+        start = time.time()	
         for i, data in enumerate(loader, 0):
             transform = transforms.Normalize((0.485, 0.456, 0.406),
                                              (0.229, 0.224, 0.225))
@@ -52,7 +53,7 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
                                           seq[torch.arange(loader.batch_size,dtype=torch.long)*
                                               loader.seq_per_img])
 
-            print("batch [{} / {}]".format(i, total_step))
+            print("batch [{} / {}] cost: {}".format(i, total_step, utils.get_duration(start))
             for k, sent in enumerate(sents):
                 entry = {"image_id":data['infos'][k]['id'],
                          "caption": sent}
