@@ -11,3 +11,4 @@ coco-caption/*
 .ipynb_checkpoints*
 .vscode/
 .vscode/*
+runs/*

@@ -73,6 +73,8 @@ def train(opt):
             deccay_factor = opt.learning_rate_decay_rate ** frac
             opt.current_lr = opt.learning_rate * deccay_factor
             utils.set_lr(optimizer, opt.current_lr)
+            print("learing rate change form {} to {}".format(opt.learning_rate,
+                                                             opt.current_lr))
         else:
             opt.current_lr = opt.learning_rate
         for i, data in enumerate(loader, iteration):
@@ -105,10 +107,11 @@ def train(opt):
             print("iter: {}/{} (epoch {}), train loss = {:.3f}, time/batch = {}"\
                  .format(i, total_step, epoch, train_loss, utils.get_duration(start)))
 
+            log_iter = i + epoch*total_step
             # write training loss summary
             if (i % opt.losses_log_every) == 0:
-                summry_writer.add_scalar('train_loss', train_loss, i)
-                summry_writer.add_scalar('learning_rate', opt.current_lr, i)
+                summry_writer.add_scalar('train_loss', train_loss, log_iter)
+                summry_writer.add_scalar('learning_rate', opt.current_lr, log_iter)
 
             # make evaluation on validation set, and save model
             if (i % opt.save_checkpoint_every == 0):
@@ -120,10 +123,10 @@ def train(opt):
                 predictions,\
                 lang_stats = eval_utils.eval_split(encoder, decoder, criterion,
                                                    opt, eval_kwargs)
-                summry_writer.add_scalar('valaidation loss', val_loss, i)
+                summry_writer.add_scalar('valaidation loss', val_loss, log_iter)
                 if lang_stats is not None:
                     for metric, score in lang_stats.items():
-                        summry_writer.add_scalar(metric, score, i)
+                        summry_writer.add_scalar(metric, score, log_iter)
                 val_result_history[i] = {"loss": val_loss,
                                          "lang_stats": lang_stats,
                                          "predictions": predictions}
