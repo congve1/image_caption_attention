@@ -11,7 +11,7 @@ class LanguageModelCriterion(nn.Module):
     def forward(self, preds, labels, masks):
         seq_length = preds.size(1)
         batch_size = preds.size(0)
-        total_loss = torch.tensor(0.0)
+        total_loss = 0.0 
         labels = labels[:, :seq_length]
         masks = masks[:, :seq_length]
         for t in range(seq_length):
