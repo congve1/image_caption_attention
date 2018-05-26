@@ -29,7 +29,7 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
         loss_evals = 1e-8
         predictions = []
         total_step = len(loader)
-        start = time.time()	
+        start = time.time()
         for i, data in enumerate(loader, 0):
             transform = transforms.Normalize((0.485, 0.456, 0.406),
                                              (0.229, 0.224, 0.225))
@@ -79,7 +79,7 @@ def language_eval(dataset, predictions, model_id, split):
         annFile = 'coco-caption/annotations/captions_val2014.json'
 
     from pycocotools.coco import COCO
-    from pycocotools.eval import COCOEvalCap
+    from pycocoevalcap.eval import COCOEvalCap
 
     json.encoder.FLOAT_REPR = lambda o: format(0, '.3f')
 

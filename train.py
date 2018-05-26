@@ -60,6 +60,7 @@ def train(opt):
     optimizer = optim.Adam(decoder.parameters(), lr=opt.learning_rate,
                            weight_decay=opt.weight_decay)
 
+
     if vars(opt).get('start_from', None) is not None:
         optimizer_path = os.path.join(opt.start_from, 'optimizer.pth')
         optimizer.load_state_dict(torch.load(optimizer_path))
@@ -175,7 +176,7 @@ def train(opt):
                     with open(os.path.join(opt.checkpoint_path, 'infos_'+opt.id+'-best.pkl'), 'wb') as f:
                         pickle.dump(infos, f)
 
-
+    summry_writer.close()
 if __name__ == "__main__":
     opt = opts.parse_opts()
     train(opt)
