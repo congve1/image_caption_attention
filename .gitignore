@@ -12,3 +12,7 @@ coco-caption/*
 .vscode/
 .vscode/*
 runs/*
+pycocoevalcap/*
+log_st/*
+save/*
+eval_results/*

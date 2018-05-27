@@ -24,11 +24,11 @@ To use this code, you need to install:
 - numpy
 - pycocotools
 - imageio
-- sciki-image
+- scikit-image
 - h5py
 
 You can use pip to install pycocotools directly or compile from source code.
-
+Also download [pycocoevalcap](https://github.com/salaniz/pycocoevalcap) code.
 ### Prepare Dataset
 First, download the coco images from [link](http://mscoco.org/dataset/#download). We need 2014 training images and 2014 val. images.
 Then, download preprocessed coco captions from [link](http://cs.stanford.edu/people/karpathy/deepimagesent/caption_datasets.zip) and extract `dataset_coco.json` from zip file into `data/`.
@@ -41,4 +41,15 @@ Warning: the prepro script will fail with the default MSCOCO data because one of
 ### Start training
 ```bash
 $ python train.py --id st --input_json data/cocotalk.json --input_h5 data/cocotalk.h5 --batch_size 10 --learning_rate 5e-4 --learning_rate_decay_start 0 --checkpoint_path log_st --save_checkpoint_every 6000 --val_images_use 5000 --max_epochs 25
+```
+
+The train script will dump checkpoints into the folder specified by `--checkpoint_path`(default=`save/`). We only save the best-performing checkpoint on validation and the latest checkpoint to save disk space
+
+To resume training, you can specify `--start_from` option to be the path saveing `infos.pth` and `model.pth`
+
+If you'd like to evaluate BLEU/METEOR/CIDEr scores during training in addition to validation cross entropy loss, use `--language_eval 1` option, but don't forget to download the [coco-caption](https://github.com/salaniz/pycocoevalcap) code.
+
+### Evaluate on Karpathy's test split
+```bash
+$ python eval.py --model model.pth --infos_path infos.pkl --language_eval 1 --num_images 5000
 ```
