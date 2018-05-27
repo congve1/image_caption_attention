@@ -135,7 +135,7 @@ def train(opt):
                 if opt.language_eval == 1:
                     current_score = lang_stats['CIDEr']
                 else:
-                    current_score = -val_loss
+                    current_score = -val_loss.item()
 
                 best_flag = False
                 if best_val_score is None or current_score > best_val_score:
