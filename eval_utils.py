@@ -44,7 +44,8 @@ def eval_split(encoder, decoder, crit, opt, eval_kwargs={}):
             masks = torch.tensor(data['masks'], dtype=torch.float).to(device)
 
             features = encoder(imgs)
-            loss = crit(decoder(features, labels), labels[:, 1:], masks[:, 1:])
+            seqs = decoder(features, labels)
+            loss = crit(seqs, labels[:, 1:], masks[:, 1:])
             loss_sum += loss
             loss_evals += 1
             seq, _ = decoder.sample(features)

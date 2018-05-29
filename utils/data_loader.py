@@ -78,6 +78,7 @@ class COCODataset(data.Dataset):
         tmp_img = self._random_crop(tmp_img, out_size)
         #print(ix)
         imgs = np.stack([tmp_img for _ in range(self.seq_per_img)])
+        imgs = (imgs.astype(np.float)) / 255. #normalize img to 0-1.
         info_dict = {}
         info_dict['id'] = img['id']
         #print(img['id'])
