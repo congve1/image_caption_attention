@@ -10,8 +10,8 @@ import pickle
 import tensorboardX
 
 import opts
-from models.encoder import Encoder
-from models.decoder import Decoder
+from core.encoder import Encoder
+from core.decoder import Decoder
 import utils.utils as utils
 from utils.data_loader import get_loader
 import eval_utils

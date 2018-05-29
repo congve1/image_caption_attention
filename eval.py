@@ -5,7 +5,7 @@ import argparse
 import json
 import pickle
 
-import models
+import core
 import eval_utils
 import utils.utils as utils
 from utils.data_loader import get_loader
@@ -38,8 +38,8 @@ def main(opt):
                 vars(opt).update({key: value})
     vocab = infos['vocab']
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    encoder = models.encoder.Encoder().to(device)
-    decoder = models.decoder.Decoder(opt).to(device)
+    encoder = core.encoder.Encoder().to(device)
+    decoder = core.decoder.Decoder(opt).to(device)
     decoder.load_state_dict(torch.load(opt.model, map_location=str(device)))
     encoder.eval()
     decoder.eval()
