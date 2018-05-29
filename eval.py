@@ -5,11 +5,12 @@ import argparse
 import json
 import pickle
 
-import core
 import eval_utils
 import utils.utils as utils
 from utils.data_loader import get_loader
 import opts
+from core.encoder import Encoder
+from core.decoder import Decoder
 
 def main(opt):
     with open(opt.infos_path, 'rb') as f:
@@ -38,8 +39,9 @@ def main(opt):
                 vars(opt).update({key: value})
     vocab = infos['vocab']
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    encoder = core.encoder.Encoder().to(device)
-    decoder = core.decoder.Decoder(opt).to(device)
+
+    encoder = Encoder().to(device)
+    decoder = Decoder(opt).to(device)
     decoder.load_state_dict(torch.load(opt.model, map_location=str(device)))
     encoder.eval()
     decoder.eval()
