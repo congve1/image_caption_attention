@@ -38,7 +38,7 @@ def main(opt):
             else:
                 vars(opt).update({key: value})
     vocab = infos['vocab']
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
     encoder = Encoder().to(device)
     decoder = Decoder(opt).to(device)
