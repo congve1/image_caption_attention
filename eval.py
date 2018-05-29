@@ -40,8 +40,10 @@ def main(opt):
     vocab = infos['vocab']
     device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 
-    encoder = Encoder().to(device)
-    decoder = Decoder(opt).to(device)
+    encoder = Encoder()
+    decoder = Decoder(opt)
+    encoder = encoder.to(device)
+    decoder = decoder.to(device)
     decoder.load_state_dict(torch.load(opt.model, map_location=str(device)))
     encoder.eval()
     decoder.eval()
@@ -81,6 +83,7 @@ if __name__ == "__main__":
     parser.add_argument('--input_h5', type=str, default='')
     parser.add_argument('--split', type=str, default='test',
                 help='if running on MSCOCO images, which split to use: val|test|train')
+    parser.add_argument('--verbose', type=bool, default=False)
     # misc
     parser.add_argument('--id', type=str, default='',
                 help='an id identifying this run/job. used only if language_eval = 1 for appending to intermediate files')
