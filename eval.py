@@ -56,6 +56,9 @@ def main(opt):
         print('loss: ', loss)
         print(lang_stats)
 
+        result_json_path = os.path.join(opt.id, "captions_"+opt.split+"2014_"+opt.id+"_results.json")
+        with open(result_json_path, "w") as f:
+            json.dump(split_predictions, f)
 
 
 
