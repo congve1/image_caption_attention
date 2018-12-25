@@ -22,7 +22,6 @@ def train(opt):
     opt.seq_length = loader.seq_length
 
     summry_writer = tensorboardX.SummaryWriter()
-
     infos = {}
     histories = {}
     if opt.start_from is not None:
